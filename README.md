@@ -8,7 +8,7 @@ Python implementation of the Borgun/SaltPay payments solution RPG. See [https://
 
 Test coverage
 =============
-<img width="694" alt="Coverage report" src="https://user-images.githubusercontent.com/143557/114572408-fa9b2180-9c66-11eb-9140-0f64da2ebd2f.png">
+<img width="615" alt="Screenshot 2021-04-16 at 16 45 31" src="https://user-images.githubusercontent.com/143557/115057121-2f131580-9ed3-11eb-99e9-8cd3eaf01e23.png">
 
 
 Testing
