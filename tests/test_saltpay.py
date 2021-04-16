@@ -152,7 +152,7 @@ def test_create_virtual_card_without_credentials_raises_exception(wrong_saltpay,
 
 @pytest.mark.saltpay
 def test_virtual_card_payment(saltpay, creditcard, verification_data):
-    response = saltpay.Payment(creditcard['token'], 100, "352", creditcard['cvc'], "asdf")
+    response = saltpay.Payment(creditcard['token'], 100, "352", "asdf")
 
     assert response['TransactionStatus'] == 'Accepted'
     assert response['ActionCode'] == '000'

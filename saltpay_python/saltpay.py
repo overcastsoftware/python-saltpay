@@ -57,7 +57,7 @@ class SaltpayClient(object):
 
         return self.make_request("/api/token/multi", "POST", json=payload)
 
-    def Payment(self, Token, Amount, Currency, CVC, OrderId):
+    def Payment(self, Token, Amount, Currency, OrderId):
 
         assert str(Currency) in ISO4217Numeric
 
@@ -72,7 +72,6 @@ class SaltpayClient(object):
             "PaymentMethod": {
                 "PaymentType": "TokenMulti",
                 "Token": Token,
-                "CVC": CVC,
             }
         }        
 
