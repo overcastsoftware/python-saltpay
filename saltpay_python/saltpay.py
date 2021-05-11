@@ -118,7 +118,7 @@ class SaltpayClient(object):
                 'verificationFields': fields,
                 'html': response['RedirectToACSForm']
             }
-        raise SaltPayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
+        raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
 
 
     def Validation(self, PARes=None, CRes=None):
@@ -138,4 +138,4 @@ class SaltpayClient(object):
         if response['MdStatus'] == '1':
             return True
         
-        raise SaltPayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
+        raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
