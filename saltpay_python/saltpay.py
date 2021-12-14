@@ -103,7 +103,7 @@ class SaltpayClient(object):
 
         response = self.make_request("/api/mpi/v2/enrollment", "POST", json=payload)
 
-        if response["ResultStatus"] == 0 and response["MdStatus"] == "9":
+        if response["ResultStatus"] == 0 and response["MdStatus"] in ["1", "2", "3", "9"]:
             url = ""
             fields = {}
             for item in response["RedirectToACSData"]:
