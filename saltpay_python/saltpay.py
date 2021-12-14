@@ -103,7 +103,7 @@ class SaltpayClient(object):
 
         response = self.make_request("/api/mpi/v2/enrollment", "POST", json=payload)
 
-        if response["ResultStatus"] == 0 and response["MdStatus"] in ["1", "2", "3", "9"]:
+        if response["ResultStatus"] == 0 and response["MdStatus"] == "9":
             url = ""
             fields = {}
             for item in response["RedirectToACSData"]:
@@ -117,6 +117,13 @@ class SaltpayClient(object):
                 'postUrl': url,
                 'verificationFields': fields,
                 'html': response['RedirectToACSForm']
+            }
+        elif response["ResultStatus"] == 0 and response["MdStatus"] == "1":
+            return {
+                'token': response['MPIToken'],
+                'postUrl': '',
+                'verificationFields': '',
+                'html': '',
             }
         raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
 
@@ -135,7 +142,7 @@ class SaltpayClient(object):
 
         response = self.make_request("/api/mpi/v2/validation", "POST", json=payload)
 
-        if response['MdStatus'] == '1':
+        if response['MdStatus'] == '1' or response['MdStatus'] == '9':
             return True
-        
+
         raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
