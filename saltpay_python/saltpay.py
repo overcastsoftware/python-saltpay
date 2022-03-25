@@ -92,7 +92,7 @@ class SaltpayClient(object):
                 "ExpMonth": ExpMonth,
                 "CVC2": CVC2,
             },
-            "Amount": Amount,
+            "PurchAmount": Amount,
             "Exponent": Exponent,
             "Currency": Currency,
             "MD": base64.b64encode(MD.encode()).decode('utf-8'),
