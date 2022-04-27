@@ -1,12 +1,15 @@
  # -*- coding: utf-8 -*-
 
-from datetime import date, datetime, timedelta
 import base64
-from .errors import SaltpayException
 import uuid
+from datetime import date, datetime, timedelta
 from enum import Enum
+
 import requests
+
 from .currencies import ISO4217Numeric
+from .errors import SaltpayException
+
 
 class SaltpayClient(object):
 
@@ -35,6 +38,8 @@ class SaltpayClient(object):
     def make_request(self, action, method, **args):
         if method == 'POST':
             response = requests.post(self.format_url(action), auth=(self.APIKEY, ''), **args)
+        if method == 'GET':
+            response = requests.get(self.format_url(action), auth=(self.APIKEY, ''), **args)
 
         self.check_error(response)
         return response.json()
@@ -69,11 +74,19 @@ class SaltpayClient(object):
             "Currency": Currency,
             "TransactionDate": TransactionDate,
             "OrderId": OrderId,
-            "PaymentMethod": {
+        }
+
+        if Token.startswith("99") and len(Token) == 16:
+            payload["PaymentMethod"] = {
+                "PaymentType": "Card",
+                "PAN": Token,
+            }
+        else:
+            payload["PaymentMethod"] = {
                 "PaymentType": "TokenMulti",
                 "Token": Token,
             }
-        }
+
         if MpiToken:
             payload["ThreeDSecure"] = {
                 "DataType": "Token",
