@@ -143,8 +143,8 @@ class SaltpayClient(object):
 
     def Validation(self, PARes=None, CRes=None):
 
-        if PARes or (PARes and CERes):
-
+        payload =  {}
+        if PARes or (PARes and CRes):
             payload = {
                 "PARes": PARes,
             }
