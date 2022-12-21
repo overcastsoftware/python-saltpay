@@ -131,14 +131,17 @@ class SaltpayClient(object):
                 'verificationFields': fields,
                 'html': response['RedirectToACSForm']
             }
-        elif response["ResultStatus"] == 0 and response["MdStatus"] == "1":
+        elif response["ResultStatus"] == 0 and response["MdStatus"] in ["1", "2", "3", "4"]:
             return {
                 'token': response['MPIToken'],
                 'postUrl': '',
                 'verificationFields': '',
                 'html': '',
             }
-        raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
+        if 'MdErrorMessage' in response.keys():
+            raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
+        else:
+            raise SaltpayException(message=f"Unsuccessful request.")
 
 
     def Validation(self, PARes=None, CRes=None):
