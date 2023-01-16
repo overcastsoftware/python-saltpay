@@ -40,8 +40,11 @@ class SaltpayClient(object):
             response = requests.post(self.format_url(action), auth=(self.APIKEY, ''), **args)
         if method == 'GET':
             response = requests.get(self.format_url(action), auth=(self.APIKEY, ''), **args)
+        if method == 'PUT':
+            response = requests.put(self.format_url(action), auth=(self.APIKEY, ''), **args)
 
         self.check_error(response)
+        print(response.content)
         return response.json()
 
 
@@ -94,6 +97,9 @@ class SaltpayClient(object):
             }
 
         return self.make_request("/api/payment", "POST", json=payload)
+
+    def Refund(self, TransactionId):
+        return self.make_request(f"/api/payment/{TransactionId}/refund", "PUT")
 
 
     def Enrollment(self, PAN, ExpMonth, ExpYear, Amount, Exponent, Currency, CVC2, OkUrl, FailUrl, TermUrl, MD=''):

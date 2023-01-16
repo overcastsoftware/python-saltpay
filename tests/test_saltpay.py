@@ -9,6 +9,7 @@ import pytest
 from random import randint
 
 
+import random
 
 
 @pytest.fixture
@@ -152,11 +153,28 @@ def test_create_virtual_card_without_credentials_raises_exception(wrong_saltpay,
 
 @pytest.mark.saltpay
 def test_virtual_card_payment(saltpay, creditcard, verification_data):
-    response = saltpay.Payment(creditcard['token'], 100, "352", "asdf")
+    t_id = random.randint(1,100000)
+    order_id = f'{t_id:012}'
+
+    response = saltpay.Payment(creditcard['token'], 100, "352", order_id)
 
     assert response['TransactionStatus'] == 'Accepted'
     assert response['ActionCode'] == '000'
     assert response['PaymentMethod']['Token'] == creditcard['token']
+
+@pytest.mark.saltpay
+def test_virtual_card_payment_and_refund(saltpay, creditcard, verification_data):
+    t_id = random.randint(1,100000)
+    order_id = f'{t_id:012}'
+    response = saltpay.Payment(creditcard['token'], 100, "352", order_id)
+
+    assert response['TransactionStatus'] == 'Accepted'
+    assert response['ActionCode'] == '000'
+    assert response['PaymentMethod']['Token'] == creditcard['token']
+
+    response2 = saltpay.Refund(response['TransactionId'])
+    assert response2['ActionCode'] == '000'
+    assert 'RefundTransactionId' in response2.keys()
 
 # @pytest.mark.saltpay
 # def test_create_virtual_card_v2(saltpay_v2, creditcard, verification_data_v2):
