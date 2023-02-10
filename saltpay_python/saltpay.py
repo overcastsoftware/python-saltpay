@@ -47,6 +47,11 @@ class SaltpayClient(object):
         print(response.content)
         return response.json()
 
+    def GetMultiToken(self, token):
+        return self.make_request(f"/api/token/multi/{token}", "GET")
+
+    def GetSingleToken(self, token):
+        return self.make_request(f"/api/token/single/{token}", "GET")
 
     def TokenMultiRequest(self, PAN, ExpMonth, ExpYear, CheckAmount, Currency, CVC):
 
