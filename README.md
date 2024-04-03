@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.org/overcastsoftware/python-saltpay.svg?branch=master)](https://travis-ci.org/overcastsoftware/python-saltpay)
 
-Borgun/SaltPay python library
+Teya (SaltPay (Borgun)) python library
 ========================
 
-Python implementation of the Borgun/SaltPay payments solution RPG. See [https://docs.borgun.is/paymentgateways/bapi/](https://docs.borgun.is/paymentgateways/bapi/).
+Python implementation of the Teya (SaltPay (Borgun)) payments solution RPG. See [https://docs.borgun.is/paymentgateways/bapi/](https://docs.borgun.is/paymentgateways/bapi/).
 
 
 Test coverage
