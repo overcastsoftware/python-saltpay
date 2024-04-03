@@ -1,5 +1,7 @@
  # -*- coding: utf-8 -*-
 
+import logging
+
 import base64
 import uuid
 from datetime import date, datetime, timedelta
@@ -10,6 +12,7 @@ import requests
 from .currencies import ISO4217Numeric
 from .errors import SaltpayException
 
+logger = logging.getLogger("saltpay")
 
 class SaltpayClient(object):
 
@@ -124,8 +127,14 @@ class SaltpayClient(object):
             "FailUrl": FailUrl,
             "TermUrl": TermUrl,
         }
-
+        logger.debug("="*80)
+        logger.debug("Enrollment payload:")
+        logger.debug(payload)
         response = self.make_request("/api/mpi/v2/enrollment", "POST", json=payload)
+        
+        logger.debug("="*80)
+        logger.debug("Enrollment response:")
+        logger.debug(response)
 
         if response["ResultStatus"] == 0 and response["MdStatus"] == "9":
             url = ""
@@ -167,7 +176,15 @@ class SaltpayClient(object):
                 "CRes": CRes
             }
 
+        logger.debug("="*80)
+        logger.debug("Validation payload:")
+        logger.debug(payload)
+
         response = self.make_request("/api/mpi/v2/validation", "POST", json=payload)
+
+        logger.debug("="*80)
+        logger.debug("Validation response:")
+        logger.debug(response)
 
         if response['MdStatus'] == '1' or response['MdStatus'] == '9':
             return True
