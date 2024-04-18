@@ -136,7 +136,7 @@ class SaltpayClient(object):
         logger.debug("Enrollment response:")
         logger.debug(response)
 
-        if response["ResultStatus"] == 0 and response["MdStatus"] == "9":
+        if response["ResultStatus"] == 0 and response["AuthenticationStatus"] == "C":
             url = ""
             fields = {}
             for item in response["RedirectToACSData"]:
@@ -151,7 +151,7 @@ class SaltpayClient(object):
                 'verificationFields': fields,
                 'html': response['RedirectToACSForm']
             }
-        elif response["ResultStatus"] == 0 and response["MdStatus"] in ["1", "2", "3", "4"]:
+        elif response["ResultStatus"] == 0 and response["AuthenticationStatus"] == "Y":
             return {
                 'token': response['MPIToken'],
                 'postUrl': '',
