@@ -33,9 +33,9 @@ class SaltpayClient(object):
         self.TESTING = testing
         self.APIVERSION = apiversion
 
-        self.ENDPOINT = 'https://test.borgun.is/rpg/'
+        self.ENDPOINT = 'https://test.borgun.is/rpg'
         if not testing:
-            self.ENDPOINT = 'https://ecommerce.borgun.is/rpg/'
+            self.ENDPOINT = 'https://ecommerce.borgun.is/rpg'
 
 
     def make_request(self, action, method, **args):
