@@ -126,6 +126,7 @@ class SaltpayClient(object):
             "OkUrl": OkUrl,
             "FailUrl": FailUrl,
             "TermUrl": TermUrl,
+            "TDS2ThreeDSRequestorChallengeInd": "04",
         }
         logger.debug("="*80)
         logger.debug("Enrollment payload:")
