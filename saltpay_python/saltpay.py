@@ -159,6 +159,14 @@ class SaltpayClient(object):
                 'verificationFields': '',
                 'html': '',
             }
+        elif response["ResultStatus"] == 0 and response["AuthenticationStatus"] == "N" and response["EnrollmentStatus"] == "Y" and self.TESTING:
+            return {
+                'token': response['MPIToken'],
+                'postUrl': '',
+                'verificationFields': '',
+                'html': '',
+            }
+        
         if 'MdErrorMessage' in response.keys():
             raise SaltpayException(message=f"Unsuccessful request. {response['MdErrorMessage']}")
         else:
